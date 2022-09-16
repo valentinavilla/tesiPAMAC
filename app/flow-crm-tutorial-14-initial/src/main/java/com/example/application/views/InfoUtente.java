@@ -128,6 +128,7 @@ public class InfoUtente extends VerticalLayout implements HasUrlParameter<Intege
 			// Dividers for all but the last item
 			item.setDividerVisible(i < VISIBLE_RECENT_TRANSACTIONS - 1);
             item.getContent().setAlignItems(Alignment.CENTER);
+            item.expand(label);
             item.setMargin(Bottom.M, Horizontal.RESPONSIVE_L, Top.L);
 			items.add(item);
         }
