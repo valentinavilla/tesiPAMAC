@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.data.entity.Richiesta;
 import com.example.application.data.service.CrmService;
 import com.example.application.views.utili.Bottom;
+
 import com.example.application.views.utili.MyFlexLayout;
 import com.example.application.views.utili.Right;
 import com.example.application.views.utili.Top;
@@ -19,6 +20,7 @@ import com.vaadin.flow.component.charts.model.PlotOptionsSolidgauge;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.orderedlayout.FlexLayout.ContentAlignment;
 import com.vaadin.flow.component.orderedlayout.FlexLayout.FlexDirection;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -32,7 +34,7 @@ public class DashboardView extends VerticalLayout {
         this.service = service;
         addClassName("dashboard-view");
         setDefaultHorizontalComponentAlignment(Alignment.CENTER); 
-        add(getContactStats(), getStatusChart(), getGenderChart(), createPaymentsCharts());
+        add(getContactStats(), getStatusChart(), getGenderChart(), createRequestsHeader(),createCharts());
     }   
 
     private Component getContactStats() {
@@ -100,7 +102,7 @@ public class DashboardView extends VerticalLayout {
 		MyFlexLayout statusChart = new MyFlexLayout(
 				new Label(status.toString()), chartContainer);
 		statusChart.setAlignItems(Alignment.CENTER);
-		statusChart.setFlexDirection(FlexDirection.COLUMN);
+		statusChart.setFlexDirection(FlexDirection.ROW);
 		statusChart.setPadding(Bottom.S, Top.M);
 		return statusChart;
 	}
@@ -140,11 +142,19 @@ public class DashboardView extends VerticalLayout {
 		return chart;
 	}
 
-    private Component createPaymentsCharts() {
+	private Component createRequestsHeader() {
+		Label titolo =new Label("Richieste più recenti:");
+        titolo.addClassName("h2");
+
+
+		MyFlexLayout header = new MyFlexLayout(titolo);
+		header.setAlignItems(Alignment.START);
+        header.setAlignContent(ContentAlignment.START);
+		return header;
+	}
+
+    private Component createCharts() {
 		Row charts = new Row();
-		//UIUtils.setBackgroundColor(LumoStyles.Color.BASE_COLOR, charts);
-		//UIUtils.setBorderRadius(BorderRadius.S, charts);
-		//UIUtils.setShadow(Shadow.XS, charts);
 
 		for (Richiesta.StatoRichiesta status : Richiesta.StatoRichiesta.values()) {
 			charts.add(createPaymentChart(status));

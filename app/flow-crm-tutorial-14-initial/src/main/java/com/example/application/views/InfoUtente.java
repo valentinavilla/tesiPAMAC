@@ -76,17 +76,16 @@ public class InfoUtente extends VerticalLayout implements HasUrlParameter<Intege
         
     }
 
+    //form per la modifica dei dati del contatto
     private ModifyForm configureForm() {
         form = new ModifyForm( service.findAllStatuses(), service); 
         form.setContact(contatto);
         form.setWidth("25em");
         return form;
-
-       // form.addListener(ContactForm.SaveEvent.class, this::saveContact); 
-       // form.addListener(ContactForm.DeleteEvent.class, this::deleteContact); 
         
     }
 
+    //sezione info contatto
     private Component configureInfo(Contact c) {
         MyFlexLayout Vl=new MyFlexLayout(
             createImageSection(),
@@ -128,8 +127,8 @@ public class InfoUtente extends VerticalLayout implements HasUrlParameter<Intege
 			// Dividers for all but the last item
 			item.setDividerVisible(i < VISIBLE_RECENT_TRANSACTIONS - 1);
             item.getContent().setAlignItems(Alignment.CENTER);
-            item.expand(label);
             item.setMargin(Bottom.M, Horizontal.RESPONSIVE_L, Top.L);
+            item.expand(item.getComponentAt(0));
 			items.add(item);
         }
        
@@ -332,12 +331,12 @@ public class InfoUtente extends VerticalLayout implements HasUrlParameter<Intege
                 label
         );
         // Dividers for all but the last item
-        item.setDividerVisible(i < VISIBLE_RECENT_TRANSACTIONS - 1);
+        item.setDividerVisible(i < VISIBLE_RECENT_TRANSACTIONS - 1);;
         item.getContent().setAlignItems(Alignment.CENTER);
         item.setMargin(Bottom.M, Horizontal.RESPONSIVE_L, Top.L);
+        item.expand(item.getComponentAt(0));
         items.add(item);
         }
-   
         return items;
     }
 
